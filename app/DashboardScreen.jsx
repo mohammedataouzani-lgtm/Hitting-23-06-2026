@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
+import BottomTabBar, { TAB_BAR_HEIGHT } from './components/BottomTabBar';
 import {
   View,
   Text,
@@ -453,41 +454,10 @@ export default function DashboardScreen({ navigation }) {
       </ScrollView>
 
       {/* ── BOTTOM TAB BAR ──────────────────────────────────────────── */}
-      <View style={styles.tabBar}>
-        <TouchableOpacity style={styles.tabItem}>
-          <Text style={[styles.tabIcon, styles.tabIconActive]}>🏠</Text>
-          <View style={styles.tabActiveDot} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.tabItem}
-          onPress={() => navigation?.navigate('MesBoxeurs')}
-        >
-          <Text style={styles.tabIcon}>👥</Text>
-        </TouchableOpacity>
-
-        {/* Bouton "+" central */}
-        <TouchableOpacity
-          style={styles.tabPlusBtn}
-          activeOpacity={0.85}
-          onPress={() => navigation?.navigate('MesBoxeurs')}
-        >
-          <LinearGradient
-            colors={['#EF5350', '#E53935']}
-            style={styles.tabPlusGradient}
-          >
-            <Text style={styles.tabPlusIcon}>+</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.tabItem}>
-          <Text style={styles.tabIcon}>👤</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.tabItem}>
-          <Text style={styles.tabIcon}>🔔</Text>
-        </TouchableOpacity>
-      </View>
+      <BottomTabBar
+        activeTab="dashboard"
+        navigation={navigation}
+      />
 
       {/* Bottom Sheet Bilan saison */}
       <BilanBottomSheet
@@ -505,63 +475,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 
-  // TAB BAR
-  tabBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    height: TAB_BAR_HEIGHT,
-    backgroundColor: '#fff',
-    borderTopWidth: 0.5,
-    borderTopColor: '#E5E5E5',
-    paddingBottom: Platform.OS === 'ios' ? 16 : 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
-    elevation: 10,
-  },
-  tabItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 6,
-  },
-  tabIcon: {
-    fontSize: 24,
-    opacity: 0.4,
-  },
-  tabIconActive: {
-    opacity: 1,
-  },
-  tabActiveDot: {
-    width: 5,
-    height: 5,
-    borderRadius: 2.5,
-    backgroundColor: '#E53935',
-    marginTop: 3,
-  },
-  tabPlusBtn: {
-    marginBottom: Platform.OS === 'ios' ? 10 : 0,
-    shadowColor: '#E53935',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-  tabPlusGradient: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tabPlusIcon: {
-    fontSize: 30,
-    color: '#fff',
-    fontWeight: '300',
-    lineHeight: 32,
-    marginTop: -1,
-  },
+  // TAB BAR → géré par le composant BottomTabBar
 
   // HEADER
   header: {
